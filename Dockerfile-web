@@ -1,0 +1,25 @@
+FROM ubuntu:latest
+
+RUN apt-get update && apt-get -y install \
+    nginx \
+    php7.0-fpm \
+    python-setuptools \
+    curl \
+    git \
+    unzip
+
+# supervisord
+RUN /usr/bin/easy_install supervisor
+RUN /usr/bin/easy_install supervisor-stdout
+ADD ./conf/supervisord.conf /etc/supervisord.conf
+
+# nginx configuration
+COPY ./conf/vhost.conf /etc/nginx/sites-enabled/wordpress.dev
+RUN echo 'daemon off;' >> /etc/nginx/nginx.conf
+
+RUN mkdir -p /run/php
+RUN sed -i 's/;daemonize = yes/daemonize = no/' /etc/php/7.0/fpm/php-fpm.conf
+
+EXPOSE 80 443
+
+CMD ["/usr/local/bin/supervisord", "-n"]
