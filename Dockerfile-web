@@ -9,7 +9,7 @@ RUN apt-get update && apt-get -y install \
     git \
     unzip
 
-# create user for volume permissions
+# update UID for volume permissions
 RUN usermod -u 1000 www-data
 
 # supervisord

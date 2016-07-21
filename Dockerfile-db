@@ -1,4 +1,4 @@
 FROM mariadb:latest
 
-# create user for volume permissions
+# update UID for volume permissions
 RUN usermod -u 1000 mysql
