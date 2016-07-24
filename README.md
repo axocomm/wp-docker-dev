@@ -5,7 +5,7 @@ Another attempt at an instant WordPress development environment
 ## Requirements
 
 - Docker
-- [docker-compose](https://docs.docker.com/compose/)
+- [docker-compose](https://docs.docker.com/compose/) 1.6+
 - Ruby 1.9.3+ (for Rake)
 
 ## Setup
