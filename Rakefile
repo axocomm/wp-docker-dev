@@ -35,3 +35,18 @@ desc 'Stop containers'
 task :down do
   sh 'docker-compose down'
 end
+
+desc 'Run database shell'
+task :dbshell do
+  cmd = <<-EOT
+    docker run \
+      -it \
+      --link wpdocker_db_1:mariadb \
+      --rm \
+      --net wpdocker_default \
+      mariadb \
+      sh -c 'exec mysql -hdb -uroot -pwordpress'
+  EOT
+
+  sh cmd
+end
