@@ -10,7 +10,8 @@ RUN apt-get update && apt-get -y install \
     unzip
 
 # update UID for volume permissions
-RUN usermod -u 1000 www-data
+ARG HOST_USER_ID=1000
+RUN usermod -u $HOST_USER_ID www-data
 
 # supervisord
 RUN /usr/bin/easy_install supervisor

@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-web
+      args:
+        - HOST_USER_ID
     ports:
       - '8080:80'
     volumes:
@@ -14,6 +16,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-db
+      args:
+        - HOST_USER_ID
     environment:
       MYSQL_ROOT_PASSWORD: wordpress
     volumes:
