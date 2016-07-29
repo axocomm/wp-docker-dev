@@ -1,6 +1,7 @@
 require 'json'
 
 CONFIG = 'config.json'
+SERVICE_BASE = File.basename(Dir.pwd).gsub(/[^A-Za-z0-9]/, '')
 
 def get_config(filename)
   JSON.parse File.open(filename).read
@@ -28,7 +29,8 @@ end
 
 desc 'Start containers'
 task :start do
-  sh "#{export_str($config)} && docker-compose up -d"
+  d_str = ENV['DETACH'] ? '-d' : ''
+  sh "#{export_str($config)} && docker-compose up #{d_str}"
 end
 
 desc 'Stop containers'
@@ -36,14 +38,20 @@ task :down do
   sh 'docker-compose down'
 end
 
+desc 'Run a shell in container'
+task :enter, [:service] do |_, args|
+  name = "#{SERVICE_BASE}_#{args[:service]}_1"
+  sh "docker exec -it #{name} bash"
+end
+
 desc 'Run database shell'
 task :dbshell do
   cmd = <<-EOT
     docker run \
       -it \
-      --link wpdocker_db_1:mariadb \
+      --link #{SERVICE_BASE}_db_1:mariadb \
       --rm \
-      --net wpdocker_default \
+      --net #{SERVICE_BASE}_default \
       mariadb \
       sh -c 'exec mysql -hdb -uroot -pwordpress'
   EOT
