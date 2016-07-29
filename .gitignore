@@ -1,3 +1,6 @@
-data/
+data/www/*
+data/db/*
+!data/www/.gitkeep
+!data/db/.gitkeep
 config.json
 conf/vhost.conf
