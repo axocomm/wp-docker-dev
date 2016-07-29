@@ -13,6 +13,8 @@ Another attempt at an instant WordPress development environment
 - Run `bundle install` to install Rake
 - Copy `config-sample.json` to `config.json` and edit settings
 as required (see below)
+- Copy `conf/vhost-example.conf` to `conf/vhost.conf` and configure
+if desired
 - Run `rake start` to build and start the containers
 
 ## Usage
@@ -46,7 +48,8 @@ as necessary.
 Once WordPress has been extracted to the proper subdirectory, ensure entries for
 your desired subdomains exist in your `/etc/hosts` file. One should be present for
 each subdomain and should point to the IP address of the Docker host. After that, 
-you should be able to access sites at `http://<subdirectory>.wordpress.dev:8080`.
+you should be able to access sites at `http://<subdirectory>.wordpress.dev:8080`
+(will of course vary depending on `vhost.conf` settings).
 
 ## Configuration
 
