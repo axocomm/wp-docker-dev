@@ -20,6 +20,7 @@ ADD ./conf/supervisord.conf /etc/supervisord.conf
 
 COPY ./conf/vhost.conf /etc/nginx/sites-enabled/wordpress.dev
 RUN echo 'daemon off;' >> /etc/nginx/nginx.conf
+RUN chmod 777 /var/log/nginx
 
 RUN mkdir -p /run/php
 RUN sed -i 's/;daemonize = yes/daemonize = no/' /etc/php/7.0/fpm/php-fpm.conf
