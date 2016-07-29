@@ -23,8 +23,9 @@ rescue Exception => e
 end
 
 desc 'Build images'
-task :build do
-  sh "#{export_str($config)} && docker-compose build"
+task :build, [:services] do |_, args|
+  s_str = (args[:services] || '').gsub(/:/, ' ')
+  sh "#{export_str($config)} && docker-compose build #{s_str}"
 end
 
 desc 'Start containers'
