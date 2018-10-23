@@ -10,6 +10,10 @@ services:
       - '8080:80'
     volumes:
       - ./data/www:/www
+      # If SELinux is causing problems with these volume mounts,
+      # you may try appending `:Z` to the host directory to
+      # ensure MCS labels are added:
+      # - ./data/www:/www:Z
     depends_on:
       - db
   db:
@@ -22,3 +26,4 @@ services:
       MYSQL_ROOT_PASSWORD: wordpress
     volumes:
       - ./data/db:/var/lib/mysql
+      # - ./data/db:/var/lib/mysql:Z
