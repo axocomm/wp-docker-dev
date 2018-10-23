@@ -39,6 +39,11 @@ task :down do
   sh 'docker-compose down'
 end
 
+desc 'Remove containers'
+task :rm do
+  sh 'docker-compose rm'
+end
+
 desc 'Run a shell in container'
 task :enter, [:service] do |_, args|
   name = "#{SERVICE_BASE}_#{args[:service]}_1"
